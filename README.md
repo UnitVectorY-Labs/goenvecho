@@ -26,6 +26,12 @@ For exmaple:
 }
 ```
 
+## Configuration
+
+This application runs as a docker container and can utilize the following environment variables:
+
+- `PORT` - The port the application listens on. (default `8080`)
+
 ## Get started
 
 Quickly get up and running by pulling the latest release from [goenvecho on GitHub Packages](https://github.com/UnitVectorY-Labs/goenvecho/pkgs/container/goenvecho) and running it in your container environment of choice.
