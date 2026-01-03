@@ -31,6 +31,7 @@ For exmaple:
 This application runs as a docker container and can utilize the following environment variables:
 
 - `PORT` - The port the application listens on. (default `8080`)
+- `PRETTY_PRINT` - When set to `true`, the JSON response will be pretty printed with indentation. (default `false`)
 
 ## Get started
 
