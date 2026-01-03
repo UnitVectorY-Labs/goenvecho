@@ -20,15 +20,12 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	
+	encoder := json.NewEncoder(w)
 	// Check if PRETTY_PRINT is set to "true"
-	prettyPrint := os.Getenv("PRETTY_PRINT")
-	if prettyPrint == "true" {
-		encoder := json.NewEncoder(w)
+	if os.Getenv("PRETTY_PRINT") == "true" {
 		encoder.SetIndent("", "  ")
-		encoder.Encode(env)
-	} else {
-		json.NewEncoder(w).Encode(env)
 	}
+	encoder.Encode(env)
 }
 
 func splitEnvVar(envVar string) []string {
