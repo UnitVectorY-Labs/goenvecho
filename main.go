@@ -19,7 +19,13 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(env)
+	
+	encoder := json.NewEncoder(w)
+	// Check if PRETTY_PRINT is set to "true"
+	if os.Getenv("PRETTY_PRINT") == "true" {
+		encoder.SetIndent("", "  ")
+	}
+	encoder.Encode(env)
 }
 
 func splitEnvVar(envVar string) []string {
