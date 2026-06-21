@@ -1,0 +1,10 @@
+name: goenvecho
+default_branch: main
+config:
+  description: "Simple app that responds to GET requests with a JSON payload listing all environment variables."
+  license: MIT
+  language: go
+  release: docker-go
+  release_github: true
+  org: UnitVectorY-Labs
+  status: active
