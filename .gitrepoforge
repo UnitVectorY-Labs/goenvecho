@@ -1,6 +1,7 @@
 name: goenvecho
 default_branch: main
 config:
+  osv: sarif
   description: "Simple app that responds to GET requests with a JSON payload listing all environment variables."
   license: MIT
   language: go
