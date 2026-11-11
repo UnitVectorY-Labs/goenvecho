@@ -1,7 +1,8 @@
 package main
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"net/http"
 	"os"
 	"runtime/debug"
@@ -22,15 +23,19 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		env[pair[0]] = pair[1]
 	}
 
+	opts := []json.Options{json.Deterministic(true)}
+	if os.Getenv("PRETTY_PRINT") == "true" {
+		opts = append(opts, jsontext.WithIndent("  "))
+	}
+	data, err := json.Marshal(env, opts...)
+	if err != nil {
+		http.Error(w, "failed to encode environment as JSON", http.StatusInternalServerError)
+		return
+	}
+
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("X-App-Version", Version)
-
-	encoder := json.NewEncoder(w)
-	// Check if PRETTY_PRINT is set to "true"
-	if os.Getenv("PRETTY_PRINT") == "true" {
-		encoder.SetIndent("", "  ")
-	}
-	encoder.Encode(env)
+	w.Write(append(data, '\n'))
 }
 
 func splitEnvVar(envVar string) []string {
